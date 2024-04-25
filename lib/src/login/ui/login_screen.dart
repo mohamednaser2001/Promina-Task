@@ -1,11 +1,16 @@
 
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:promina_task/core/helpers/extensions.dart';
 import 'package:promina_task/core/routing/routes.dart';
+import 'package:promina_task/core/utils/color_manger.dart';
 import 'package:promina_task/core/widgets/custom_text.dart';
 import '../../../core/helpers/spacing.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_loading.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
@@ -21,66 +26,109 @@ class LoginScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: ()async => false,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Form(
-            key: context.read<LoginCubit>().formKey,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 70.h),
-              child: SingleChildScrollView(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+
+            Image.asset(
+              AppAssets.background,
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,),
+
+            Form(
+              key: context.read<LoginCubit>().formKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 41.0.w,),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     const CustomText(
-                      text: 'Login',
-                      size: 28,
-                      fontWeight: FontWeight.w700,
+                      text: 'My\nGallery',
+                      size: 50,
+                      inCenter: true,
+                      color: AppColors.blackColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                    verticalSpace(80),
+                    verticalSpace(38),
+                    ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 6,
+                          sigmaY: 6,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 48.h, horizontal: 31.w),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(32.r),
+                          ),
+                          child: Column(
+                            children: [
+                              const CustomText(
+                                text: 'LOG IN',
+                                size: 32,
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              verticalSpace(38),
 
 
-                    CustomTextFormField(
-                      controller: context.read<LoginCubit>().emailController,
-                      hint: 'Email',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your email';
-                        } else {
-                          return null;
-                        }
-                      },
-                      context: context,
-                    ),
+                              CustomTextFormField(
+                                controller: context.read<LoginCubit>().emailController,
+                                hint: 'Email',
+                                radius: 22,
+                                withBorder: false,
+                                inputType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Enter your email';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                context: context,
+                              ),
 
-                    verticalSpace(30),
+                              verticalSpace(38),
 
-                    CustomTextFormField(
-                      controller: context.read<LoginCubit>().passwordController,
-                      hint: 'Password',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your password';
-                        } else {
-                          return null;
-                        }
-                      },
-                      context: context,
-                    ),
+                              CustomTextFormField(
+                                controller: context.read<LoginCubit>().passwordController,
+                                hint: 'Password',
+                                radius: 22,
+                                withBorder: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Enter your password';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                context: context,
+                              ),
 
 
-                    verticalSpace(70),
+                              verticalSpace(70),
 
-                    BlocBuilder<LoginCubit, LoginStates>(
-                      builder: (context, state) {
-                        return state is LoginLoadingState
-                        ? const CustomLoading()
-                        : CustomButton(
-                          text: 'Login',
-                          radius: 46.r,
-                          function: () {
-                            context.read<LoginCubit>().validateInputsAndLogin();
-                          },
-                        );
-                      }
+                              BlocBuilder<LoginCubit, LoginStates>(
+                                builder: (context, state) {
+                                  return state is LoginLoadingState
+                                  ? const CustomLoading()
+                                  : CustomButton(
+                                    text: 'Submit',
+                                    radius: 10.r,
+                                    height: 46.h,
+                                    function: () {
+                                      context.read<LoginCubit>().validateInputsAndLogin();
+                                    },
+                                  );
+                                }
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
 
 
@@ -106,7 +154,13 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+            
+            PositionedDirectional(
+              start: 60.w,
+                top: 60.h,
+                child: Image.asset(AppAssets.cameraLogin, width: 100.w,),
+            )
+          ],
         ),
       ),
     );

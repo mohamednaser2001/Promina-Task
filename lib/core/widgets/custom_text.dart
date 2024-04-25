@@ -29,7 +29,7 @@ class CustomText extends StatelessWidget {
       maxLines: maxLines,
       overflow: textOverflow,
       textAlign: inCenter? TextAlign.center : TextAlign.start,
-      style: GoogleFonts.poppins(
+      style: GoogleFonts.balooThambi2(
         fontSize: size.sp,
         fontWeight: fontWeight,
         color: color,

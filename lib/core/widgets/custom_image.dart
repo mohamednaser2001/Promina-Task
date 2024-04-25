@@ -29,7 +29,7 @@ class CustomImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(radius??12.r),
+      borderRadius: BorderRadius.circular(radius??20.r),
       child: ConditionalBuilder(
         condition: imageType(image)!= 'svg',
         builder: (context) {

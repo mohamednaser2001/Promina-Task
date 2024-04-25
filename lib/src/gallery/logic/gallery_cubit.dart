@@ -10,15 +10,25 @@ class GalleryCubit extends Cubit<GalleryState> {
   final GalleryRepo _galleryRepo;
 
   GalleryCubit(this._galleryRepo) : super(GalleryInitial()){
-    getGallery();
+    getDataAndGallery();
   }
 
+  late String? token;
+  late String? name;
+
+  bool loadWhileGetName= false;
+  Future<void> getDataAndGallery()async {
+    loadWhileGetName= true;
+    emit(GetNameLoadingState());
+    await getLocalData();
+    await getGallery();
+  }
 
   List<String> images= [];
   Future<void> getGallery()async {
     emit(GetGalleryLoadingState());
 
-    final response = await _galleryRepo.getGallery(await getToken()??'');
+    final response = await _galleryRepo.getGallery(token??'');
 
     response.when(success: (userData)async {
       images= userData.galleryData.images;
@@ -28,9 +38,12 @@ class GalleryCubit extends Cubit<GalleryState> {
     });
   }
 
-  Future<String?> getToken()async {
+  Future<void> getLocalData()async {
     SharedPreferences sharedPreferences= await SharedPreferences.getInstance();
-    return sharedPreferences.getString('token');
+    token= sharedPreferences.getString('token');
+    name= sharedPreferences.getString('name');
+    loadWhileGetName= false;
+    emit(GetNameSuccessState());
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/color_manger.dart';
 
@@ -20,6 +21,7 @@ class CustomButton extends StatelessWidget {
     this.width=double.infinity,
     this.icon,
     this.elevation=2,
+    this.fontWeight= FontWeight.w400
 
   }) : super(key: key);
 
@@ -33,8 +35,9 @@ class CustomButton extends StatelessWidget {
   double height=52;
   double fontSize=18;
   double width=double.infinity;
-  IconData? icon;
+  String? icon;
   double elevation=2;
+  FontWeight? fontWeight;
 
 
   @override
@@ -50,20 +53,20 @@ class CustomButton extends StatelessWidget {
       minWidth:width,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if(icon!=null)
             Padding(
-              padding: const EdgeInsets.only(right: 4.0),
-              child: Icon(icon, color: iconColor.withOpacity(0.7),),
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Image.asset(icon!, width: 44.r, fit: BoxFit.cover,),
             ),
           Text(
             text,
-            style:GoogleFonts.poppins(
+            style:GoogleFonts.balooThambi2(
               color: textColor,
               fontSize: fontSize.sp,
-              fontWeight: FontWeight.w400,
+              fontWeight: fontWeight,
             ),
           ),
         ],

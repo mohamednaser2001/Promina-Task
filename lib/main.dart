@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initGetIt();
 
-  String initialRoute= await isAuthenticated() ? Routes.home : Routes.loginRoute;
+  String initialRoute= await isAuthenticated() ? Routes.loginRoute : Routes.loginRoute;
 
   runApp(ProminaApp(initialRoute: initialRoute,));
 }

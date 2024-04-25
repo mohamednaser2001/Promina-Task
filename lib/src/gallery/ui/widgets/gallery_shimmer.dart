@@ -15,14 +15,14 @@ class GalleryShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GridView.count(
-      crossAxisCount: 2,
+      crossAxisCount: 3,
       crossAxisSpacing: 12.w,
       mainAxisSpacing: 24.h,
       childAspectRatio: 1/0.8,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-      children: List.generate(8,
+      children: List.generate(12,
               (index) {
-            return CardShimmer();
+            return const CardShimmer();
           }
       ),
     );

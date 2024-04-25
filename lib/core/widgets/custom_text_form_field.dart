@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:promina_task/core/utils/font_weight_helper.dart';
 import '../utils/color_manger.dart';
 import '../utils/enums.dart';
 
@@ -19,7 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     this.radius = 50,
     this.height = 53,
     this.enabledBorderColor = AppColors.descriptionColor,
-    this.hintColor = AppColors.gray,
+    this.hintColor = AppColors.hintColor,
     this.contentPadding,
     this.inputType = TextInputType.text,
     this.isDescription = false,
@@ -27,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
     this.isPassword = false,
     this.isSecured = false,
     this.onChanged,
-    this.backgroundColor= AppColors.lighterGray,
+    this.backgroundColor= const Color(0xffF7F7F7),
     this.onSubmitted,
     this.prefixIcon,
     this.suffixIconPressed,
@@ -87,25 +88,23 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isSecured ? true : false,
       keyboardType: inputType,
 
-      style: GoogleFonts.poppins(
+      style: GoogleFonts.balooThambi2(
         fontSize: 18.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.gray,
+        color: AppColors.blackColor,
       ),
       decoration: InputDecoration(
         isDense: true,
         fillColor: backgroundColor,
         filled: true,
         hintText: hint,
-        hintStyle: hintStyle ?? GoogleFonts.poppins(
+        hintStyle: hintStyle ?? GoogleFonts.balooThambi2(
           fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          color: AppColors.gray,
+          fontWeight: FontWeightHelper.semiBold,
+          color: hintColor,
         ),
-        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 10.h, horizontal: 22.w),
+        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
         prefixIcon: prefixIcon == null ? null : Icon(prefixIcon, color: hintColor, size: 30.r,),
-        // prefixIconConstraints: BoxConstraints(
-        //     maxHeight: 30.h, minWidth: 32.w),
         suffixIcon: icon == null ? null : InkWell(
           onTap: (){
             suffixIconPressed!();

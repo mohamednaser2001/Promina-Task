@@ -19,3 +19,6 @@ class UploadToGalleryErrorState extends GalleryState {
   String error;
   UploadToGalleryErrorState(this.error);
 }
+
+class GetNameLoadingState extends GalleryState {}
+class GetNameSuccessState extends GalleryState {}
